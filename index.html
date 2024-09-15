@@ -18,10 +18,43 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
+            justify-content: flex-start;
             min-height: 100vh;
             padding: 20px;
             box-sizing: border-box;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .header img {
+            width: 100px;
+            height: 100px;
+            margin-bottom: 10px;
+        }
+
+        .header .title {
+            font-size: 2em;
+            font-weight: bold;
+        }
+        .filter-container {
+            margin-bottom: 20px;
+        }
+        .filter-select {
+            padding: 10px;
+            font-size: 1em;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+        }
+        .buttons-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            width: 100%;
+            max-width: 800px;
         }
         .button {
             background-color: #ffffff;
@@ -38,6 +71,35 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             transition: background-color 0.3s, color 0.3s, transform 0.3s;
             margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .button.small {
+            padding: 10px 20px;
+            font-size: 0.9em;
+        }
+
+        .button.medium {
+            padding: 20px 40px;
+            font-size: 1.1em;
+        }
+
+        .button.large {
+            padding: 30px 60px;
+            font-size: 1.3em;
+        }
+
+        .button.narrow {
+            max-width: 150px;
+        }
+
+        .button.normal {
+            max-width: 250px;
+        }
+
+        .button.wide {
+            max-width: 350px;
         }
         .button:hover {
             transform: translateY(-3px);
@@ -119,25 +181,15 @@
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
         }
-        .filter-container {
-            margin-bottom: 20px;
-        }
-        .filter-select {
-            padding: 10px;
-            font-size: 1em;
-            border-radius: 8px;
-            border: none;
-            cursor: pointer;
-        }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- Ícone -->
-        <img src="https://raw.githubusercontent.com/Luanzinh0fc/Luanzinh0fc-Banco-de-dados-p-blicos/main/1000008714-removebg.png" alt="Ícone" class="logo" width="100" height="100">
-        
-        <!-- Texto animado com gradiente -->
-        <div class="gradient-text">EDUCAÇÃO FÍSICA - 3º BIMESTRE</div>
+        <!-- Ícone e título -->
+        <div class="header">
+            <img src="https://raw.githubusercontent.com/Luanzinh0fc/Luanzinh0fc-Banco-de-dados-p-blicos/main/1000008714-removebg.png" alt="Ícone" class="logo">
+            <div class="gradient-text">EDUCAÇÃO FÍSICA - 3º BIMESTRE</div>
+        </div>
 
         <!-- Filtro por mês usando um menu suspenso -->
         <div class="filter-container">
@@ -148,14 +200,14 @@
             </select>
         </div>
 
-        <!-- Botão atualizado com o link correto -->
-        <div class="button" data-month="09" onclick="window.location.href='https://studytask-ai.github.io/12-09-EDUCA-O-F-SICA-/'">
-            12/09 - EDUCAÇÃO FÍSICA
-        </div>
-
         <!-- Botões de links -->
-        <div class="button" data-month="08" onclick="window.location.href='https://studytask-ai.github.io/12-09-EDUCA-O-F-SICA-/'">
-            08/08 - Educação Física
+        <div class="buttons-wrapper">
+            <button class="button medium normal" data-month="09" onclick="window.location.href='https://studytask-ai.github.io/12-09-EDUCA-O-F-SICA-/'">
+                12/09 - EDUCAÇÃO FÍSICA
+            </button>
+            <button class="button medium normal" data-month="08" onclick="window.location.href='https://sites.google.com/view/cpiadestudytask/educa%C3%A7%C3%A3o-f%C3%ADsica-0808?authuser=0'">
+                08/08 - Educação Física
+            </button>
         </div>
 
         <div class="settings-icon" onclick="showThemeSetup()">⚙️</div>
@@ -165,6 +217,9 @@
     <div class="theme-setup" id="themeSetup">
         <button class="close-button" onclick="closeThemeSetup()">✖</button>
         <h2>Configuração de Tema</h2>
+        <div class="color-slider">
+            <input type="range" min="0" max="360" value="0" id="hueRange" oninput="applyHueColor()">
+        </div>
         <div class="theme-options">
             <button class="theme-button" style="background-color: #ff2f2f;" onclick="setTheme('#ff2f2f', '#ffffff')">Vermelho</button>
             <button class="theme-button" style="background-color: #ffffff; color: #000000;" onclick="setTheme('#ffffff', '#000000')">Branco</button>
@@ -173,10 +228,25 @@
             <button class="theme-button" style="background-color: #070a08;" onclick="setTheme('#070a08', '#ffffff')">Verde Escuro</button>
             <button class="theme-button" style="background-color: #8533f1;" onclick="setTheme('#8533f1', '#ffffff')">Roxo</button>
         </div>
+        
+        <div class="config-section">
+            <h2>Configurações de Tamanho dos Botões</h2>
+            <button class="theme-button" onclick="setButtonSize('small')">Pequeno</button>
+            <button class="theme-button" onclick="setButtonSize('medium')">Médio</button>
+            <button class="theme-button" onclick="setButtonSize('large')">Grande</button>
+        </div>
+
+        <div class="config-section">
+            <h2>Configurações de Largura dos Botões</h2>
+            <button class="theme-button" onclick="setButtonWidth('narrow')">Estreito</button>
+            <button class="theme-button" onclick="setButtonWidth('normal')">Normal</button>
+            <button class="theme-button" onclick="setButtonWidth('wide')">Largo</button>
+        </div>
     </div>
 
     <script>
         const themeSetup = document.getElementById('themeSetup');
+        const hueRange = document.getElementById('hueRange');
 
         // Mostrar modal de configuração de tema
         function showThemeSetup() {
@@ -186,6 +256,14 @@
         // Fechar modal de configuração de tema
         function closeThemeSetup() {
             themeSetup.style.display = 'none';
+        }
+
+        // Aplicar cor personalizada usando o controle deslizante
+        function applyHueColor() {
+            const hueValue = hueRange.value;
+            const bgColor = `hsl(${hueValue}, 100%, 50%)`;
+            const textColor = `hsl(${hueValue}, 100%, 20%)`;
+            setTheme(bgColor, textColor);
         }
 
         // Definir tema e salvar no localStorage
@@ -221,8 +299,44 @@
             });
         }
 
-        // Aplicar tema armazenado ao carregar a página
-        window.onload = applyStoredTheme;
+        function setButtonSize(size) {
+            const buttons = document.querySelectorAll('.button');
+            buttons.forEach(button => {
+                button.classList.remove('small', 'medium', 'large');
+                button.classList.add(size);
+            });
+            localStorage.setItem('buttonSize', size);
+        }
+
+        function setButtonWidth(width) {
+            const buttons = document.querySelectorAll('.button');
+            buttons.forEach(button => {
+                button.classList.remove('narrow', 'normal', 'wide');
+                button.classList.add(width);
+            });
+            localStorage.setItem('buttonWidth', width);
+        }
+
+        function applyStoredButtonSize() {
+            const storedSize = localStorage.getItem('buttonSize');
+            if (storedSize) {
+                setButtonSize(storedSize);
+            }
+        }
+
+        function applyStoredButtonWidth() {
+            const storedWidth = localStorage.getItem('buttonWidth');
+            if (storedWidth) {
+                setButtonWidth(storedWidth);
+            }
+        }
+
+        // Aplicar configurações armazenadas ao carregar a página
+        window.onload = () => {
+            applyStoredTheme();
+            applyStoredButtonSize();
+            applyStoredButtonWidth();
+        };
     </script>
 </body>
 </html>
